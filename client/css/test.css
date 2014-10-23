@@ -1,0 +1,7 @@
+:root {
+  --test-var: red;
+}
+
+body {
+  background: var(--test-var);
+}
