@@ -20,7 +20,7 @@ app.use(convert(require('koa-static')(__dirname + '/public')));
 
 app.use(convert(views('views', {
   root: __dirname + '/views',
-  default: 'jade',
+  default: 'jade'
 })));
 
 app.use(co.wrap(function* (ctx, next) {
@@ -34,7 +34,7 @@ app.use(co.wrap(function* (ctx, next) {
   const start = new Date();
   yield next();
   const ms = new Date() - start;
-  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
+  console.log(`${ ctx.method } ${ ctx.url } - ${ ms }ms`);
 }));
 
 router.use('/', index.routes(), index.allowedMethods());
