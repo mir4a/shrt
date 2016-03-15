@@ -1,0 +1,10 @@
+{
+	"preset": "airbnb",
+  "esnext": true,
+  "requireSpacesInGenerator": {
+    "afterStar": true
+  },
+  "disallowSpacesInGenerator": {
+    "beforeStar": true
+  }
+}
