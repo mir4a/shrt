@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/mir4a/shrt.png?label=ready&title=Ready)](https://waffle.io/mir4a/shrt)
 # shrt
 
 ## Workflow
