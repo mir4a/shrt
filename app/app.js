@@ -4,13 +4,18 @@ const router = require('koa-router')();
 const views = require('koa-views');
 const co = require('co');
 const convert = require('koa-convert');
+const csrf = require('koa-csrf');
 const json = require('koa-json');
 const onerror = require('koa-onerror');
 const bodyparser = require('koa-bodyparser')();
 const logger = require('koa-logger');
+const mongoose = require('mongoose');
+const session = require('koa-generic-session');
+const MongoStore = require('koa-generic-session-mongo');
 
 const index = require('./routes/index');
 const users = require('./routes/users');
+const login = require('./routes/login');
 
 // middlewares
 app.use(convert(bodyparser));
@@ -28,6 +33,43 @@ app.use(co.wrap(function* (ctx, next) {
   yield next();
 }));
 
+// DB connection
+mongoose.connect(process.env.MONGODB_URI || 'localhost');
+
+// Sessoion
+app.keys = ['your-session-secret', 'another-session-secret'];
+app.use(convert(session({
+  store: new MongoStore()
+})));
+
+// csrf
+csrf(app);
+app.use(convert(csrf.middleware));
+// app.use(co.wrap(function* (ctx, next) {
+//   ctx.render({
+//     csrf: ctx.csrf,
+//   });
+// }));
+
+// app.use(co.wrap(function* (ctx, next) {
+//   var body = yield bodyparser(ctx);
+//   try {
+//     ctx.assertCSRF(body);
+//   } catch (err) {
+//     ctx.status = 403;
+//     ctx.body = {
+//       message: 'This CSRF token is invalid!',
+//     };
+//     return;
+//   };
+// }));
+
+// authentication
+require('./auth');
+const passport = require('koa-passport');
+app.use(passport.initialize());
+app.use(passport.session());
+
 // logger
 
 app.use(co.wrap(function* (ctx, next) {
@@ -38,6 +80,7 @@ app.use(co.wrap(function* (ctx, next) {
 }));
 
 router.use('/', index.routes(), index.allowedMethods());
+router.use('/login', login.routes(), login.allowedMethods());
 router.use('/users', users.routes(), users.allowedMethods());
 
 app.use(router.routes(), router.allowedMethods());
