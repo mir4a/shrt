@@ -7,10 +7,33 @@
     "test": "./node_modules/.bin/mocha --reporter spec"
   },
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "classnames": "^2.2.3",
     "meteor-node-stubs": "~0.2.0",
     "react": "^15.1.0",
     "react-addons-pure-render-mixin": "^15.1.0",
     "react-dom": "^15.1.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.4.1",
+    "postcss": "^5.2.0",
+    "postcss-browser-reporter": "^0.5.0",
+    "postcss-cssnext": "^2.8.0",
+    "postcss-import": "^8.1.2",
+    "postcss-reporter": "^1.4.1",
+    "postcss-url": "^5.1.2"
+  },
+  "postcss": {
+    "plugins": {
+      "postcss-import": {},
+      "postcss-url": {},
+      "postcss-cssnext": {
+        "browsers": [
+          "last 4 versions"
+        ]
+      },
+      "postcss-browser-reporter": {},
+      "postcss-reporter": {}
+    }
   }
 }

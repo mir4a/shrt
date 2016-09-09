@@ -5,7 +5,6 @@ body {
   background-color: #315481;
   background-image: linear-gradient(to bottom, #315481, #918e82 100%);
   background-attachment: fixed;
-  border: 1px solid --test-var;
 
   position: absolute;
   top: 0;
