@@ -5,3 +5,7 @@
 body {
   background: var(--test-var);
 }
+
+* {
+  box-sizing: border-box;
+}
