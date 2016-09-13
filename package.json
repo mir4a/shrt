@@ -1,17 +1,10 @@
 {
-  "name": "shrt",
-  "version": "0.0.0",
+  "name": "simple-todos",
   "private": true,
   "scripts": {
-    "start": "meteor run",
-    "test": "./node_modules/.bin/mocha --reporter spec"
+    "start": "meteor run"
   },
   "dependencies": {
-    "bcrypt": "^0.8.7",
-    "classnames": "^2.2.3",
-    "meteor-node-stubs": "~0.2.0",
-    "react": "^15.1.0",
-    "react-addons-pure-render-mixin": "^15.1.0",
-    "react-dom": "^15.1.0"
+    "meteor-node-stubs": "~0.2.0"
   }
 }
