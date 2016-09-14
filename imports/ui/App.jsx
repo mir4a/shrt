@@ -1,9 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import ReactDOM from 'react-dom';
-import { Tasks } from '/imports/api/tasks.js';
+import { Tasks } from '/imports/api/tasks';
 
-import Task from './Task.jsx';
+import mainStyles from '/client/main.css.json';
+import todoStyles from '/client/css/todo.css.json';
+
+import Task from './Task';
 
 // App component - represents the whole app
 class App extends Component {
@@ -39,7 +42,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className={mainStyles.container}>
         <header>
           <h1>Todo List</h1>
         </header>
@@ -47,7 +50,7 @@ class App extends Component {
         {/*
         * Move this to separate component
         **/}
-        <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
+        <form className={mainStyles['new-task']} onSubmit={this.handleSubmit.bind(this)} >
           <input
             type="text"
             ref="textInput"
@@ -55,7 +58,7 @@ class App extends Component {
           />
         </form>
 
-        <ul>
+        <ul className={todoStyles['tasks-list']}>
           {this.renderTasks()}
         </ul>
       </div>
