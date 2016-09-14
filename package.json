@@ -31,7 +31,8 @@
       "postcss-reporter": {}
     },
     "excludedPackages": [
-      "accounts"
+      "accounts",
+      "practicalmeteor"
     ]
   }
 }
