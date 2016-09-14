@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor'
+import classnames from 'classnames';
 
 import { Tasks } from '../api/tasks';
 
+import mainStyles from '/client/main.css.json';
 import todoStyles from '/client/css/todo.css.json';
 
 // Task component - represents a single todo item
@@ -13,6 +15,10 @@ export default class Task extends Component {
     Meteor.call('tasks.setChecked', this.props.task._id, !this.props.task.checked);
   }
 
+  togglePrivate() {
+    Meteor.call('tasks.setPrivate', this.props.task._id, ! this.props.task.private);
+  }
+
   deleteThisTask() {
     Meteor.call('tasks.remove', this.props.task._id);
   }
@@ -20,10 +26,16 @@ export default class Task extends Component {
   render() {
     // Give tasks a different className when they are checked off,
     // so that we can style them nicely in CSS
-    const taskClassName = this.props.task.checked ? todoStyles.checked : '';
+    const taskClassName = classnames([
+      {
+        [`${todoStyles.checked}`]: this.props.task.checked,
+        [`${todoStyles.private}`]: this.props.task.private,
+      },
+      todoStyles['task-item'],
+    ]);
 
     return (
-      <li className={todoStyles['task-item'] + ' ' +taskClassName}>
+      <li className={taskClassName}>
         <button className={todoStyles.delete} onClick={this.deleteThisTask.bind(this)}>
           &times;
         </button>
@@ -34,6 +46,12 @@ export default class Task extends Component {
           checked={this.props.task.checked}
           onClick={this.toggleChecked.bind(this)}
         />
+
+        { this.props.showPrivateButton ? (
+          <button className={mainStyles['toggle-private']} onClick={this.togglePrivate.bind(this)}>
+            { this.props.task.private ? 'Private' : 'Public' }
+          </button>
+        ) : ''}
 
         <span className={todoStyles.text}>
           <strong>{this.props.task.username}</strong>: {this.props.task.text}
@@ -47,4 +65,5 @@ Task.propTypes = {
   // This component gets the task to display through a React prop.
   // We can use propTypes to indicate it is required
   task: PropTypes.object.isRequired,
+  showPrivateButton: React.PropTypes.bool.isRequired,
 };
